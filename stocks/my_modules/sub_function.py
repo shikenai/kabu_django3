@@ -1,44 +1,53 @@
-# import os
-# import requests
-# import pandas as pd
+from kabu_django3.settings import BASE_DIR
+import os
+
+import requests
+import pandas as pd
+
+
 # from stocks import models
-#
-#
+
+
 # # ----------------------------------------------------
 # # 東証から銘柄一覧を取得して、dataフォルダに格納する一連の関数
-# def save_file(path, filename, data, mode):
-#     # ファイルを保存するためのディレクトリを作成
-#     os.makedirs(path, exist_ok=True)
-#
-#     # ファイルパスを生成
-#     file_path = os.path.join(path, filename)
-#
-#     # 指定したフォルダに保存
-#     with open(file_path, mode) as f:
-#         f.write(data.content)
-#
-#
-# def brand_xls2csv():
-#     read_file = pd.read_excel("/Users/yoshikazukakehashi/PycharmProjects/kabu_django2/data/data_all_brand.xls")
-#     read_file.to_csv("/Users/yoshikazukakehashi/PycharmProjects/kabu_django2/data/data_all_brand.csv", index=True,
-#                      header=True, encoding="utf-8")
-#
-#
-# def get_all_brand():
-#     req = requests.get("https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xls")
-#
-#     # 保存先ディレクトリのパス
-#     new_dir = "/Users/yoshikazukakehashi/PycharmProjects/kabu_django2/data"
-#
-#     # 保存するファイル名
-#     filename = "data_all_brand.xls"
-#
-#     # ファイルを保存する
-#     save_file(new_dir, filename, req, "wb")
-#
-#     brand_xls2csv()
-#
-#
+def save_file(path, filename, data, mode):
+    # ファイルを保存するためのディレクトリを作成
+    os.makedirs(path, exist_ok=True)
+
+    # ファイルパスを生成
+    file_path = os.path.join(path, filename)
+    print(file_path)
+
+    # 指定したフォルダに保存
+    with open(file_path, mode) as f:
+        f.write(data.content)
+
+
+def brand_xls2csv():
+    read_file = pd.read_excel(BASE_DIR / "data/data_all_brand.xls")
+    read_file.to_csv(BASE_DIR / "data/data_all_brand.csv", index=True, header=True, encoding="utf-8")
+
+
+def get_all_brand():
+    # 東証一部上場企業の一覧を取得
+    req = requests.get("https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xls")
+
+    # 保存先ディレクトリのパス
+    print(BASE_DIR)
+    print(type(BASE_DIR))
+    # new_dir = os.path.join(BASE_DIR, "data")
+    new_dir = BASE_DIR / 'data'
+
+    # 保存するファイル名
+    filename = "data_all_brand.xls"
+
+    # ファイルを保存する
+    save_file(new_dir, filename, req, "wb")
+
+    brand_xls2csv()
+
+get_all_brand()
+
 # # --------------------------------------------------
 #
 # def register_TSE_brand():

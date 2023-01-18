@@ -5,7 +5,7 @@ from django.db import models
 
 
 class Brand(models.Model):
-    nation = models.CharField(max_length=30, blank=True, null=True)
+    nation = models.CharField(max_length=30, blank=True, null=True, verbose_name='国')
     market = models.CharField(max_length=20, blank=True, null=True)
     brand_name = models.CharField(max_length=50, blank=True, null=True)
     code = models.IntegerField(blank=True, null=True)

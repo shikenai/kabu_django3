@@ -19,3 +19,11 @@ class Brand(models.Model):
 
     def __str__(self):
         return self.brand_name + "(" + self.market + ":" + str(self.code) + ")"
+
+
+class Test(models.Model):
+    num = models.IntegerField()
+    name = models.CharField(max_length=10)
+
+    def __str__(self):
+        return str(self.num) + self.name

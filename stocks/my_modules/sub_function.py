@@ -3,7 +3,7 @@ import os
 
 import requests
 import pandas as pd
-
+from stocks.models import Test
 
 # from stocks import models
 
@@ -24,6 +24,9 @@ def save_file(path, filename, data, mode):
 
 
 def brand_xls2csv():
+    print(BASE_DIR)
+    print(type(BASE_DIR))
+    # BASE_DIRはpathlib.Posixpathであるため、連結する際は/を用いるらしい
     read_file = pd.read_excel(BASE_DIR / "data/data_all_brand.xls")
     read_file.to_csv(BASE_DIR / "data/data_all_brand.csv", index=True, header=True, encoding="utf-8")
 
@@ -33,9 +36,6 @@ def get_all_brand():
     req = requests.get("https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xls")
 
     # 保存先ディレクトリのパス
-    print(BASE_DIR)
-    print(type(BASE_DIR))
-    # new_dir = os.path.join(BASE_DIR, "data")
     new_dir = BASE_DIR / 'data'
 
     # 保存するファイル名
@@ -46,7 +46,7 @@ def get_all_brand():
 
     brand_xls2csv()
 
-get_all_brand()
+
 
 # # --------------------------------------------------
 #

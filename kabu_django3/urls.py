@@ -20,4 +20,5 @@ from stocks import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index),
+    path('reg_test/', views.reg_test, name = "reg_test")
 ]

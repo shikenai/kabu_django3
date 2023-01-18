@@ -2,4 +2,8 @@
 
 {% block content %}
  im index
+    <form action="{% url "reg_test" %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" name="submit" id="submit" class="button">登録</button>
+    </form>
 {% endblock %}

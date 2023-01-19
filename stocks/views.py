@@ -4,7 +4,6 @@ from stocks.my_modules import my_function, sub_function
 
 # Create your views here.
 def index(request):
-    my_function.hello()
     return render(request, 'index.html')
 
 

@@ -25,13 +25,14 @@ class Brand(models.Model):
         return self.brand_name + "(" + self.market + ":" + str(self.code) + ")"
 
 
-class Prices(models.Model):
+class Trades(models.Model):
     brand = models.ForeignKey(to=Brand, on_delete=models.CASCADE)
     trade_date = models.DateField(blank=True, null=True, auto_now=True)
     start_value = models.FloatField(verbose_name='始値', blank=True, null=True)
     end_value = models.FloatField(verbose_name='終値', blank=True, null=True)
     max_value = models.FloatField(verbose_name='高値', blank=True, null=True)
     min_value = models.FloatField(verbose_name='安値', blank=True, null=True)
+    volume = models.IntegerField(verbose_name='出来高', blank=True, null=True)
 
     def __str__(self):
         return "株価" + self.brand.unique_code() + self.trade_date.strftime("%Y年%m月%d日")

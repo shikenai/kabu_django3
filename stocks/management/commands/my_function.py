@@ -1,7 +1,9 @@
 from django.core.management.base import BaseCommand
 import pandas as pd
+import pandas_datareader.data as data
 from kabu_django3.settings import BASE_DIR
 from stocks.models import Test, Brand
+from datetime import datetime as dt
 
 
 # ---------------------
@@ -34,6 +36,12 @@ def register_TSE_brand():
 
 def get_stooq():
     print("get_STOOQ")
+    brand = "7203.JP"
+    start = dt(1950, 1, 1)
+    end = dt(2021, 1, 1)
+    df = data.DataReader(brand, "stooq", start, end)
+
+    print(df)
 
 
 # BaseCommandを継承して作成

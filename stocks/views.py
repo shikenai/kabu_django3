@@ -7,6 +7,7 @@ from stocks.models import Test
 # Create your views here.
 def index(request):
     my_function.bulk_create_test()
+    my_function.register_TSE_brand()
     return render(request, 'index.html')
 
 

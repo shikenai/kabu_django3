@@ -6,6 +6,13 @@ from stocks.models import Test, Brand
 from datetime import datetime as dt
 
 
+def update():
+    brands = Brand.objects.all()
+    for b in brands:
+        b.nation = "jp"
+    Brand.objects.bulk_update(brands, fields="nation")
+
+
 # ---------------------
 def register_TSE_brand():
     df = pd.read_csv(BASE_DIR / "data/data_all_brand.csv")
@@ -34,14 +41,18 @@ def register_TSE_brand():
 
 # ---------------------
 
-def get_stooq():
-    print("get_STOOQ")
-    brand = "7203.JP"
-    start = dt(1950, 1, 1)
-    end = dt(2021, 1, 1)
-    df = data.DataReader(brand, "stooq", start, end)
-
-    print(df)
+# def get_stooq():
+#     print("get_STOOQ")
+#     brand = "7203.JP"
+#     start = dt(1950, 1, 1)
+#     end = dt.today() + datetime.timedelta(days=1)
+#     df = data.DataReader(brand, "stooq", start, end)
+#     df_prices = df.to_dict(orient='records')
+#     prices_insert = []
+#     # Index(['Open', 'High', 'Low', 'Close', 'Volume'], dtype='object')
+#     for d in df_prices:
+#
+#     print(df.columns)
 
 
 # BaseCommandを継承して作成

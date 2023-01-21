@@ -4,7 +4,7 @@ from stocks.management.commands import my_function
 
 # Create your views here.
 def index(request):
-    my_function.Command.handle()
+    my_function.bulk_create_test()
     return render(request, 'index.html')
 
 

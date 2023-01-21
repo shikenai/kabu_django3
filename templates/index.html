@@ -14,4 +14,8 @@
         {% csrf_token %}
         <button type="submit" name="submit" id="submit" class="button">stooqから取得</button>
     </form>
+    <form action="{% url "reg_TSE_from_stooq" %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" name="submit" id="submit" class="button">stooqから登録</button>
+    </form>
 {% endblock %}

@@ -6,13 +6,6 @@ from stocks.models import Test, Brand
 from datetime import datetime as dt
 
 
-def update():
-    brands = Brand.objects.all()
-    for b in brands:
-        b.nation = "jp"
-    Brand.objects.bulk_update(brands, fields="nation")
-
-
 # ---------------------
 def register_TSE_brand():
     df = pd.read_csv(BASE_DIR / "data/data_all_brand.csv")

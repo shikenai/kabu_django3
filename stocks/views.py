@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from stocks.my_modules import sub_function
-from stocks.management.commands import my_function
+from stocks.management.commands import my_function, my_bulk_update
 from stocks.models import Test
 
 
@@ -33,7 +33,8 @@ def reg_TSE(request):
 
 def get_stooq(request):
     if request.method == 'POST':
-        my_function.get_stooq()
+        # my_function.get_stooq()
+        # my_bulk_update.update()
     else:
         print('else')
     return render(request, 'index.html')

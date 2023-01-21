@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from stocks.my_modules import my_function, sub_function
-
+from stocks.my_modules import sub_function
+from stocks.management.commands import my_function
 
 # Create your views here.
 def index(request):
+    my_function.Command.handle()
     return render(request, 'index.html')
 
 

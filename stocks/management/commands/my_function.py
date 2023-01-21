@@ -12,13 +12,16 @@ def bulk_create_test():
 
     test_model_inserts = []
     for d in df_records:
+        print("-----")
         print(d)
         print(d["コード"])
         print(d["銘柄名"])
-        test_model_inserts.append(Test(
-            num=d["コード"],
-            name=d["銘柄名"]
-        ))
+        _tests = Test.objects.filter(num=d["コード"])
+        if _tests.count() == 0:
+            test_model_inserts.append(Test(
+                num=d["コード"],
+                name=d["銘柄名"]
+            ))
     Test.objects.bulk_create(test_model_inserts)
 
 

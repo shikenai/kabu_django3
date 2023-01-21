@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from stocks.my_modules import sub_function
 from stocks.management.commands import my_function
+from stocks.models import Test
+
 
 # Create your views here.
 def index(request):

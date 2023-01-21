@@ -20,5 +20,7 @@ from stocks import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index),
-    path('reg_test/', views.reg_test, name = "reg_test")
+    path('get_TSE/', views.get_TSE, name="get_TSE"),
+    path('get_tse_brands/', views.reg_TSE, name="reg_TSE"),
+    path('get_stooq/', views.get_stooq, name="get_stooq"),
 ]

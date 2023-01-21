@@ -2,8 +2,16 @@
 
 {% block content %}
  im index
-    <form action="{% url "reg_test" %}" method="POST">
+    <form action="{% url "get_TSE" %}" method="POST">
         {% csrf_token %}
-        <button type="submit" name="submit" id="submit" class="button">登録</button>
+        <button type="submit" name="submit" id="submit" class="button">東証の銘柄取得</button>
+    </form>
+    <form action="{% url "reg_TSE" %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" name="submit" id="submit" class="button">TSE銘柄の登録</button>
+    </form>
+    <form action="{% url "get_stooq" %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" name="submit" id="submit" class="button">stooqから取得</button>
     </form>
 {% endblock %}

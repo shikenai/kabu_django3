@@ -18,6 +18,9 @@ class Brand(models.Model):
     scale_code = models.CharField(max_length=10, blank=True, null=True)
     scale_division = models.CharField(max_length=10, blank=True, null=True)
 
+    def unique_code(self):
+        return "【" + self.nation + "：" + self.market + "】" + self.brand_name + "(" + str(self.code) + "）"
+
     def __str__(self):
         return self.brand_name + "(" + self.market + ":" + str(self.code) + ")"
 
@@ -31,7 +34,7 @@ class Prices(models.Model):
     min_value = models.FloatField(verbose_name='安値', blank=True, null=True)
 
     def __str__(self):
-        return "株価" + self.brand.brand_name + self.trade_date.strftime("%Y年%m月%d日")
+        return "株価" + self.brand.unique_code() + self.trade_date.strftime("%Y年%m月%d日")
 
 
 class Test(models.Model):

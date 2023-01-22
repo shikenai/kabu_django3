@@ -8,32 +8,40 @@ import datetime
 
 
 def reg_TSE_from_stooq():
-    print("get_STOOQ")
-    code = 7203
     nation = "jp"
+    code = 7203
+    brand = Brand.objects.get(code=code, nation=nation)
+
+    print("get_STOOQ")
     brand_code = str(code) + "." + nation
     start = dt(1950, 1, 1)
     end = dt.today() + datetime.timedelta(days=1)
     df = data.DataReader(brand_code, "stooq", start, end)
-    # print(df["Date"])
     df.to_csv("data/stooq.csv")
     df = pd.read_csv('data/stooq.csv')
     df_trades = df.to_dict(orient='records')
     trades_insert = []
-    # 'Date', 'Open', 'High', 'Low', 'Close', 'Volume
     for d in df_trades:
-        _d = Trades.objects.filter(brand__code=code, brand__nation=nation, trade_date=d["Date"])
+        print(d["Date"])
+        print(d["Open"])
+        print(d["Close"])
+        print(d["High"])
+        print(d["Low"])
+        print(d["Volume"])
+        _d = Trades.objects.filter(trade_date=d["Date"], brand_code=brand_code)
         if _d.count() == 0:
             trades_insert.append(Trades(
-                brand=brand_code,
+                brand=brand,
+                brand_code=brand_code,
                 trade_date=d["Date"],
-                start_value=d["Open"],
-                end_value=d["Close"],
-                max_value=d["High"],
-                min_value=d["Low"],
+                open_value=d["Open"],
+                close_value=d["Close"],
+                high_value=d["High"],
+                low_value=d["Low"],
                 volume=d["Volume"]
             ))
     Trades.objects.bulk_create(trades_insert)
+
 
 # BaseCommandを継承して作成
 class Command(BaseCommand):

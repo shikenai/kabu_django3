@@ -7,9 +7,7 @@ from datetime import datetime as dt
 import datetime
 
 
-def reg_TSE_from_stooq():
-    nation = "jp"
-    code = 7203
+def reg_TSE_from_stooq(nation, code):
     brand = Brand.objects.get(code=code, nation=nation)
 
     print("get_STOOQ")
@@ -22,12 +20,6 @@ def reg_TSE_from_stooq():
     df_trades = df.to_dict(orient='records')
     trades_insert = []
     for d in df_trades:
-        print(d["Date"])
-        print(d["Open"])
-        print(d["Close"])
-        print(d["High"])
-        print(d["Low"])
-        print(d["Volume"])
         _d = Trades.objects.filter(trade_date=d["Date"], brand_code=brand_code)
         if _d.count() == 0:
             trades_insert.append(Trades(

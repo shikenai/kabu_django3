@@ -36,7 +36,7 @@ class Trades(models.Model):
     volume = models.IntegerField(verbose_name='出来高', blank=True, null=True)
 
     def __str__(self):
-        return "株価" + self.brand.unique_code() + self.trade_date.strftime("%Y年%m月%d日")
+        return "取引" + self.brand.unique_code() + self.trade_date.strftime("%Y年%m月%d日")
 
 
 class Test(models.Model):

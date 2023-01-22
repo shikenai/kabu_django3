@@ -15,7 +15,7 @@ def reg_TSE_from_stooq():
         nation = brand.nation
         brand_code = str(code) + "." + nation
         print("start " + brand_code)
-        if Trades.objects.filter(brand_code=brand_code) == 0:
+        if Trades.objects.filter(brand_code=brand_code).count() == 0:
             brand = Brand.objects.get(code=code, nation=nation)
             start = dt(1999, 1, 1)
             end = dt.today() + datetime.timedelta(days=1)

@@ -13,31 +13,32 @@ def reg_TSE_from_stooq():
     for brand in all_brands:
         code = brand.code
         nation = brand.nation
-        brand = Brand.objects.get(code=code, nation=nation)
-
         brand_code = str(code) + "." + nation
-        start = dt(1999, 1, 1)
-        end = dt.today() + datetime.timedelta(days=1)
-        df = data.DataReader(brand_code, "stooq", start, end)
-        df.to_csv("data/stooq.csv")
-        df = pd.read_csv('data/stooq.csv')
-        df_trades = df.to_dict(orient='records')
-        trades_insert = []
-        for d in df_trades:
-            _d = Trades.objects.filter(trade_date=d["Date"], brand_code=brand_code)
-            if _d.count() == 0:
-                trades_insert.append(Trades(
-                    brand=brand,
-                    brand_code=brand_code,
-                    trade_date=d["Date"],
-                    open_value=d["Open"],
-                    close_value=d["Close"],
-                    high_value=d["High"],
-                    low_value=d["Low"],
-                    volume=d["Volume"]
-                ))
-        Trades.objects.bulk_create(trades_insert)
-        print(code + " " + brand.brand_name + " is DONE")
+        print("start " + brand_code)
+        if Trades.objects.filter(brand_code=brand_code) == 0:
+            brand = Brand.objects.get(code=code, nation=nation)
+            start = dt(1999, 1, 1)
+            end = dt.today() + datetime.timedelta(days=1)
+            df = data.DataReader(brand_code, "stooq", start, end)
+            df.reset_index(inplace=True)
+            df = df.rename(columns={"index": "Date"})
+            df_trades = df.to_dict(orient='records')
+            trades_insert = []
+            for d in df_trades:
+                _d = Trades.objects.filter(trade_date=d["Date"], brand_code=brand_code)
+                if _d.count() == 0:
+                    trades_insert.append(Trades(
+                        brand=brand,
+                        brand_code=brand_code,
+                        trade_date=d["Date"],
+                        open_value=d["Open"],
+                        close_value=d["Close"],
+                        high_value=d["High"],
+                        low_value=d["Low"],
+                        volume=d["Volume"]
+                    ))
+            Trades.objects.bulk_create(trades_insert)
+            print(str(code) + " " + brand.brand_name + " is DONE")
     print("get TSE from Stooq is DONE!")
 
 

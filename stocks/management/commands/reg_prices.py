@@ -5,6 +5,7 @@ from kabu_django3.settings import BASE_DIR
 from stocks.models import Test, Brand, Trades
 from datetime import datetime as dt
 import datetime
+import time
 
 
 def reg_TSE_from_stooq():
@@ -15,8 +16,10 @@ def reg_TSE_from_stooq():
         nation = brand.nation
         brand_code = str(code) + "." + nation
         print("start " + brand_code)
-        if Trades.objects.filter(brand_code=brand_code).count() == 0:
-            brand = Brand.objects.get(code=code, nation=nation)
+        if Trades.objects.filter(brand_code=brand_code).exists():
+            pass
+        else:
+            t1 = time.time()
             start = dt(1999, 1, 1)
             end = dt.today() + datetime.timedelta(days=1)
             df = data.DataReader(brand_code, "stooq", start, end)
@@ -25,10 +28,11 @@ def reg_TSE_from_stooq():
             df_trades = df.to_dict(orient='records')
             trades_insert = []
             for d in df_trades:
-                _d = Trades.objects.filter(trade_date=d["Date"], brand_code=brand_code)
-                if _d.count() == 0:
+                if Trades.objects.filter(trade_date=d["Date"], brand_code=brand_code).exists():
+                    pass
+                else:
                     trades_insert.append(Trades(
-                        brand=brand,
+                        brand=Brand.objects.get(code=code, nation=nation),
                         brand_code=brand_code,
                         trade_date=d["Date"],
                         open_value=d["Open"],
@@ -39,6 +43,7 @@ def reg_TSE_from_stooq():
                     ))
             Trades.objects.bulk_create(trades_insert)
             print(str(code) + " " + brand.brand_name + " is DONE")
+            print(time.time() - t1)
     print("get TSE from Stooq is DONE!")
 
 

@@ -26,13 +26,14 @@ def reg_TSE_from_stooq():
             df.reset_index(inplace=True)
             df = df.rename(columns={"index": "Date"})
             df_trades = df.to_dict(orient='records')
+            brand = Brand.objects.get(code=code, nation=nation)
             trades_insert = []
             for d in df_trades:
                 if Trades.objects.filter(trade_date=d["Date"], brand_code=brand_code).exists():
                     pass
                 else:
                     trades_insert.append(Trades(
-                        brand=Brand.objects.get(code=code, nation=nation),
+                        brand=brand,
                         brand_code=brand_code,
                         trade_date=d["Date"],
                         open_value=d["Open"],

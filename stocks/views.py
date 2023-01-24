@@ -53,7 +53,7 @@ def get_stooq(request):
 def reg_TSE_from_stooq(request):
     if request.method == 'POST':
         print("reg_from stooq")
-        reg_prices.test()
+        reg_prices.test("untio")
         # reg_prices.reg_TSE_from_stooq()
     else:
         print('else')

@@ -49,10 +49,13 @@ def reg_TSE_from_stooq():
             print(time.time() - t1)
     print("get TSE from Stooq is DONE!")
 
+def returning(x, y):
+    return x + y
 
-def test():
+def test(wei):
     print("test command")
-
+    print(wei)
+    print(returning(1, 9))
 
 # BaseCommandを継承して作成
 class Command(BaseCommand):

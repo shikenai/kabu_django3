@@ -50,9 +50,19 @@ def reg_TSE_from_stooq():
     print("get TSE from Stooq is DONE!")
 
 
+def test():
+    print("test command")
+
+
 # BaseCommandを継承して作成
 class Command(BaseCommand):
     help = "register TSE brands"
 
+    def add_arguments(self, parser):
+        parser.add_argument("first", type=str)
+
     def handle(self, *args, **options):
-        reg_TSE_from_stooq()
+        if options["first"] == "reg":
+            reg_TSE_from_stooq()
+        elif options["first"] == "test":
+            test()

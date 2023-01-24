@@ -1,12 +1,19 @@
 from django.shortcuts import render
 from stocks.my_modules import sub_function
 from stocks.management.commands import my_function, my_bulk_update, reg_prices
-from stocks.models import Test
+from stocks.models import Brand, Trades
+import matplotlib.pyplot as plt
+import pandas as pd
+import mplfinance as mpf
 
 
 # Create your views here.
 def index(request):
-    return render(request, 'index.html')
+    _brands = Brand.objects.all()
+    contents = {
+        "brand": _brands
+    }
+    return render(request, 'index.html', contents)
 
 
 def get_all_brand_in_TSE():
@@ -40,6 +47,7 @@ def get_stooq(request):
         print('else')
     return render(request, 'index.html')
 
+
 def reg_TSE_from_stooq(request):
     if request.method == 'POST':
         print("reg_from stooq")
@@ -47,3 +55,16 @@ def reg_TSE_from_stooq(request):
     else:
         print('else')
     return render(request, 'index.html')
+
+
+def company(request):
+    code = 7203
+    nation = "jp"
+    brand_code = str(code) + "." + nation
+    _brand = Brand.objects.get(code=code, nation=nation)
+    _trades = Trades.objects.filter(brand=_brand).order_by("trade_date")
+    df = pd.DataFrame(list(_trades.values()))
+    print(df.columns)
+    df.set_index("Date")
+    mpf.plot(df)
+    return render(request, 'company.html')

@@ -29,19 +29,19 @@ def reg_TSE_from_stooq():
             brand = Brand.objects.get(code=code, nation=nation)
             trades_insert = []
             for d in df_trades:
-                if Trades.objects.filter(trade_date=d["Date"], brand_code=brand_code).exists():
-                    pass
-                else:
-                    trades_insert.append(Trades(
-                        brand=brand,
-                        brand_code=brand_code,
-                        trade_date=d["Date"],
-                        open_value=d["Open"],
-                        close_value=d["Close"],
-                        high_value=d["High"],
-                        low_value=d["Low"],
-                        volume=d["Volume"]
-                    ))
+                # if Trades.objects.filter(trade_date=d["Date"], brand_code=brand_code).exists():
+                #     pass
+                # else:
+                trades_insert.append(Trades(
+                    brand=brand,
+                    brand_code=brand_code,
+                    trade_date=d["Date"],
+                    open_value=d["Open"],
+                    close_value=d["Close"],
+                    high_value=d["High"],
+                    low_value=d["Low"],
+                    volume=d["Volume"]
+                ))
             Trades.objects.bulk_create(trades_insert)
             print(str(code) + " " + brand.brand_name + " is DONE")
             print(time.time() - t1)

@@ -10,8 +10,10 @@ import mplfinance as mpf
 # Create your views here.
 def index(request):
     _brands = Brand.objects.all()
+    _trades = Trades.objects.filter(brand_code="1485.jp")
     contents = {
-        "brand": _brands
+        "brand": _brands,
+        "trade": _trades
     }
     return render(request, 'index.html', contents)
 

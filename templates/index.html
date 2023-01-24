@@ -18,7 +18,10 @@
         {% csrf_token %}
         <button type="submit" name="submit" id="submit" class="button">stooqから登録</button>
     </form>
-    {% for b in brand %}
-        <a href="">{{ b.brand_name }}</a><br>
+    {% for t in trade %}
+        <a href="">{{ t.brand }}:{{ t.trade_date }}</a><br>
     {% endfor %}
+{#    {% for b in brand %}#}
+{#        <a href="">{{ b.brand_name }}</a><br>#}
+{#    {% endfor %}#}
 {% endblock %}

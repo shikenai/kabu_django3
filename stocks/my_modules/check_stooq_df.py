@@ -6,6 +6,7 @@ import datetime
 
 
 def check_stooq_df():
+    # code = 1485
     code = 2193
     nation = "jp"
     brand_code = str(code) + "." + nation
@@ -14,8 +15,14 @@ def check_stooq_df():
     df = data.DataReader(brand_code, "stooq", start, end)
     # print(df)
     print("-----")
-    print(df.isna().sum())
-    print(df.tail(1))
+    print(df.columns)
+    if "Volume" in df.columns:
+        df["Volume"] = df["Volume"].fillna(0).astype("int")
+        print(df)
+    else:
+        print("NONE")
+    # print(print(df["Volume"]))
+
 
 check_stooq_df()
 # # BaseCommandを継承して作成

@@ -23,7 +23,8 @@ def reg_TSE_from_stooq():
             start = dt(1999, 1, 1)
             end = dt.today() + datetime.timedelta(days=1)
             df = data.DataReader(brand_code, "stooq", start, end)
-            df = df.fillna({"volume": 0})
+            if "Volume" in df.columns:
+                df["Volume"] = df["Volume"].fillna(0).astype("int")
             df.reset_index(inplace=True)
             df = df.rename(columns={"index": "Date"})
             df_trades = df.to_dict(orient='records')

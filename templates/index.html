@@ -16,7 +16,7 @@
     </form>
     <form action="{% url "reg_TSE_from_stooq" %}" method="POST">
         {% csrf_token %}
-        <button type="submit" name="submit" id="submit" class="button">stooqから登録</button>
+        <button type="submit" name="submit" id="submit" class="button">stooqから初期登録</button>
     </form>
     {% for t in trade %}
         <a href="">{{ t.brand }}:{{ t.trade_date }}</a><br>

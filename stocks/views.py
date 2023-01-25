@@ -5,6 +5,7 @@ from stocks.models import Brand, Trades
 import matplotlib.pyplot as plt
 import pandas as pd
 import mplfinance as mpf
+from django_pandas.io import read_frame
 
 
 # Create your views here.
@@ -53,8 +54,8 @@ def get_stooq(request):
 def reg_TSE_from_stooq(request):
     if request.method == 'POST':
         print("reg_from stooq")
-        reg_prices.test("untio")
-        # reg_prices.reg_TSE_from_stooq()
+        # reg_prices.test("untio")
+        reg_prices.reg_TSE_from_stooq()
     else:
         print('else')
     return render(request, 'index.html')
@@ -63,11 +64,13 @@ def reg_TSE_from_stooq(request):
 def company(request):
     code = 7203
     nation = "jp"
-    brand_code = str(code) + "." + nation
     _brand = Brand.objects.get(code=code, nation=nation)
     _trades = Trades.objects.filter(brand=_brand).order_by("trade_date")
-    df = pd.DataFrame(list(_trades.values()))
-    print(df.columns)
-    df.set_index("Date")
-    mpf.plot(df)
+    df = read_frame(_trades)
+    df["trade_date"] = pd.to_datetime(df["trade_date"])
+    df = df.set_index("trade_date")
+    df = df.reindex(columns=['open_value', 'high_value', 'low_value', 'close_value', 'volume'])
+    df = df.rename(columns={'open_value': "Open", 'high_value': "High", 'low_value': "Low", 'close_value': "Close",
+                            'volume': "Volume"})
+    mpf.plot(df, type="candle")
     return render(request, 'company.html')

@@ -1,5 +1,3 @@
-from django.core.management.base import BaseCommand
-import pandas as pd
 import pandas_datareader.data as data
 from datetime import datetime as dt
 import datetime

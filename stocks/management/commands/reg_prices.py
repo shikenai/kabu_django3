@@ -1,8 +1,6 @@
 from django.core.management.base import BaseCommand
-import pandas as pd
 import pandas_datareader.data as data
-from kabu_django3.settings import BASE_DIR
-from stocks.models import Test, Brand, Trades
+from stocks.models import Brand, Trades
 from datetime import datetime as dt
 import datetime
 import time
@@ -49,13 +47,16 @@ def reg_TSE_from_stooq():
             print(time.time() - t1)
     print("get TSE from Stooq is DONE!")
 
+
 def returning(x, y):
     return x + y
+
 
 def test(wei):
     print("test command")
     print(wei)
     print(returning(1, 9))
+
 
 # BaseCommandを継承して作成
 class Command(BaseCommand):

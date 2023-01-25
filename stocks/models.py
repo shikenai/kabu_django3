@@ -1,8 +1,4 @@
 from django.db import models
-import datetime as dt
-
-# Create your models here.
-from django.db import models
 
 
 class Brand(models.Model):

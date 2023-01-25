@@ -13,6 +13,7 @@ idna==3.4
 kiwisolver==1.4.4
 lxml==4.9.2
 matplotlib==3.5.3
+mplfinance==0.12.9b7
 numpy==1.21.6
 outcome==1.2.0
 packaging==23.0

@@ -26,5 +26,5 @@ urlpatterns = [
     path('get_stooq/', views.get_stooq, name="get_stooq"),
     path('reg_TSE_from_stooq/', views.reg_TSE_from_stooq, name="reg_TSE_from_stooq"),
     path('company/', views.company, name="company"),
-    path('discripter/', views.boot_descripter, name="descripter"),
+    path('descripter/', views.boot_descripter, name="descripter"),
 ]

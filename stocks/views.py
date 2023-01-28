@@ -54,28 +54,9 @@ def get_stooq(request):
 
 def boot_descripter(request):
     df = descripter.get_svg()
-    # print(type(df))
-    # print(df.items())
-    # print(type(df.items()))
-    # print(df.headers)
-    c = df
-    print(type(c))
-    # c.replace('\n', "")
-    print(c)
-    print(c.serialize())
-    print(type(c.serialize()))
-    d = c.content.decode("utf-8")
-    print(d)
-    print(type(d))
-    # res = '<h1>HttpResponse Test</h1>'
     return render(request, "descripter.html", {
-        "d": d
+        "df": df
     })
-
-    # return render(request, "descripter.html", {
-    #     "df": c
-    # })
-    return HttpResponse(df)
 
 
 def reg_TSE_from_stooq(request):

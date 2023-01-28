@@ -33,8 +33,8 @@ def get_svg():
     svg = plt2svg()  # SVG化
     plt.cla()  # グラフをリセット
     response = HttpResponse(svg, content_type='image/svg+xml')
-    print(response)
-    return response
+    res_str = response.content.decode('utf-8')
+    return res_str
 
 # def test(name):
 #     print('weoioioi')

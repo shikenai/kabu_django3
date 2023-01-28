@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from stocks import views
 
+# app_name = 'stocks'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index),
@@ -25,5 +26,5 @@ urlpatterns = [
     path('get_stooq/', views.get_stooq, name="get_stooq"),
     path('reg_TSE_from_stooq/', views.reg_TSE_from_stooq, name="reg_TSE_from_stooq"),
     path('company/', views.company, name="company"),
-    path('discripter/', views.boot_discripter, name="discripter"),
+    path('discripter/', views.boot_descripter, name="descripter"),
 ]

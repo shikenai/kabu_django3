@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from stocks.my_modules import sub_function
-from stocks.management.commands import my_function, my_bulk_update, reg_prices, discripter
+from stocks.management.commands import my_function, my_bulk_update, reg_prices, descripter
 from stocks.models import Brand, Trades
 import matplotlib.pyplot as plt
 import pandas as pd
 import mplfinance as mpf
 from django_pandas.io import read_frame
+from django.http import HttpResponse
 
 
 # Create your views here.
@@ -51,9 +52,30 @@ def get_stooq(request):
     return render(request, 'index.html')
 
 
-def boot_discripter(request):
-    discripter.test()
-    return render(request, "discripter.html")
+def boot_descripter(request):
+    df = descripter.get_svg()
+    # print(type(df))
+    # print(df.items())
+    # print(type(df.items()))
+    # print(df.headers)
+    c = df
+    print(type(c))
+    # c.replace('\n', "")
+    print(c)
+    print(c.serialize())
+    print(type(c.serialize()))
+    d = c.content.decode("utf-8")
+    print(d)
+    print(type(d))
+    # res = '<h1>HttpResponse Test</h1>'
+    return render(request, "descripter.html", {
+        "d": d
+    })
+
+    # return render(request, "descripter.html", {
+    #     "df": c
+    # })
+    return HttpResponse(df)
 
 
 def reg_TSE_from_stooq(request):

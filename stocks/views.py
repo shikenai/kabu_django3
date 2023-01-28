@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from stocks.my_modules import sub_function
-from stocks.management.commands import my_function, my_bulk_update, reg_prices
+from stocks.management.commands import my_function, my_bulk_update, reg_prices, discripter
 from stocks.models import Brand, Trades
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -51,11 +51,18 @@ def get_stooq(request):
     return render(request, 'index.html')
 
 
+def boot_discripter(request):
+    discripter.test()
+    return render(request, "discripter.html")
+
+
 def reg_TSE_from_stooq(request):
     if request.method == 'POST':
         print("reg_from stooq")
-        # reg_prices.test("untio")
-        reg_prices.reg_TSE_from_stooq()
+        # reg_prices.reg_daily_trades(1301, "jp")
+        # reg_prices.reg_TSE_from_stooq()
+        reg_prices.get_from_list()
+        # print("yei")
     else:
         print('else')
     return render(request, 'index.html')

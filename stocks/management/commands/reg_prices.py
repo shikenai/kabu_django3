@@ -48,15 +48,36 @@ def reg_TSE_from_stooq():
     print("get TSE from Stooq is DONE!")
 
 
-def returning(x, y):
-    return x + y
+def reg_daily_trades(code, nation):
+    code = code
+    nation = nation
+    brand_code = str(code) + "." + nation
+    _trades = Trades.objects.filter(brand_code=brand_code).order_by("-trade_date")
+    print(_trades[0].trade_date)
 
 
-def test(wei):
-    print("test command")
-    print(wei)
-    print(returning(1, 9))
+def get_last_trade_date(code, nation):
+    code = code
+    nation = nation
+    brand_code = str(code) + "." + nation
+    _trades = Trades.objects.filter(brand_code=brand_code).order_by("-trade_date")
+    return _trades[0].trade_date
 
+
+def get_from_list():
+    print('getlist')
+    list_brand_code = ["7203.jp", "1301.jp", "4568.jp"]
+    start = dt(2023, 1, 1)
+    end = dt.today() + datetime.timedelta(days=1)
+    df = data.DataReader(list_brand_code, "stooq", start, end)
+    print(df)
+    df.reset_index(inplace=True)
+    df = df.rename(columns={"index": "Date"})
+    df.reset_index()
+    df.columns = df.columns.droplevel(0)
+    print(df.columns)
+    df0 = data.DataReader('DEXJPUS', 'fred')
+    print(df0)
 
 # BaseCommandを継承して作成
 class Command(BaseCommand):
@@ -69,4 +90,4 @@ class Command(BaseCommand):
         if options["first"] == "reg":
             reg_TSE_from_stooq()
         elif options["first"] == "test":
-            test()
+            get_from_list()
